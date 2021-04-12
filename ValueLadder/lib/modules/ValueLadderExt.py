@@ -14,6 +14,7 @@
 # Version: 001.2021.001.11Apr
 #
 # _END_HEADER_
+import TDFunctions as TDF
 
 class ValueLadder:
 	"""
@@ -41,7 +42,10 @@ class ValueLadder:
 
 	def __init__(self,ownerComp):
 		self.ownerComp = ownerComp
-
+	@property
+	def Name(self):
+		""" return the name of the ownerComp"""
+		return self.ownerComp.name
 	@property
 	def Pos(self):
 		"""get the panel.rollu starting position on interaction"""
@@ -77,15 +81,14 @@ class ValueLadder:
 			p.val = .01
 		if v == 'value_thousandth':
 			p.val = .001 
-	def clear(self):
-		"""reset values for next interaction"""
-		ownerComp 	= self.ownerComp
-		p 			= ownerComp.par
-		p.Operator	= ''
-		p.Parameter = ''
-		p.Uround	= 0
-		p.Pos		= 0
-		self.close()
+
+	def	setDefaultValue(self):
+		"""reset targeted parameter value to its default"""
+		ownerComp 			= self.ownerComp
+		p 					= ownerComp.par
+		Op					= p.Operator		
+		Par					= p.Parameter 		
+		op(Op).par[Par].val = op(Op).par[Par].default
 
 	def Open(self, 
 			component			: str = None,
@@ -141,6 +144,7 @@ class ValueLadder:
 
 		
 		'''
+		self.clear()
 		p						= self.ownerComp.par
 		p.Operator				= component
 		p.Parameter				= parameter 
@@ -166,6 +170,17 @@ class ValueLadder:
 		"""close the ValueLadder popMenu window"""
 		self.ownerComp.op("window").par.winclose.pulse()
 
+
+	def clear(self):
+		"""reset values for next interaction"""
+		ownerComp 			= self.ownerComp
+		p 					= ownerComp.par
+		p.Operator			= ''
+		p.Parameter 		= ''
+		p.Uround			= 0
+		p.Pos				= 0
+		p.Valuemultiplier	= 0
+		
 	def parseVal(self, par, prev):
 		"""
 		callback to push values to the target parameter in increments of
@@ -181,6 +196,89 @@ class ValueLadder:
 		if par < prev:
 			op(Op).par[p] = op(Op).par[p] - self.ValueMultiplier
 
+
+## Pop Menu functionality 
+
+	def PopMenu(self):
+		"""Pop Menu functionality with ctrl.select and True parameter"""
+		ownerComp = self.ownerComp
+		p = ownerComp.par
+		Op = p.Operator
+		if self.ownerComp.par.Popmenu:
+			op.TDResources.op('popMenu').Open(
+							items=[	f'{op(Op).name} Parameters', 
+									'Viewer', 
+									'Network', 
+									'Customize Component', 
+									f'{self.Name} Config', 
+									],
+							dividersAfterItems=[
+									f'{op(Op).name} Parameters', 
+									'Customize Component'
+									],
+							callback=self.onPopMenu
+							)
+
+	def onPopMenu(self, info):
+		"""	Pop Menu Callbacks"""
+		ownerComp = self.ownerComp
+		p = ownerComp.par
+		Op = p.Operator
+		if info['item'] == f'{op(Op).name} Parameters':
+			debug(op(Op))
+			self.OpenParameters(op(Op))
+		elif info['item'] == f'{self.Name} Config':
+			self.OpenParameters(ownerComp)
+		elif info['item'] == 'Viewer':
+			self.OpenViewer(op(Op))
+		elif info['item'] == 'Network':
+			self.OpenNetwork(op(Op))
+		elif info['item'] == 'Customize Component':
+			self.CustomizeParameters(op(Op))
+
+			
+##  Pane / Op / Dialogs
+
+	def OpenParameters(self, comp=''):
+		"""Takes an argument to open a floating parameter window"""
+		if not comp:
+			comp = self.ownerComp
+		if hasattr(op, 'PARPOPUP'):
+			op.PARPOPUP.Open(comp, 
+							label=comp.name, 
+							header=False, 
+							height=750)
+		else:
+			comp.openParameters()
+	def OpenNetwork(self, comp=''):
+		"""Takes an argument to open a floating network"""
+		if not comp:
+			comp = self.ownerComp
+		if hasattr(op, 'INSPECTORGADGET'):
+			op.INSPECTORGADGET.Opennetwork(comp)
+		else:
+			pane = TDF.showInPane(op(comp))
+			pane.showParameters = True
+
+	def OpenViewer(self, comp=''):
+		"""Takes an argument to open a floating viewer"""
+		if not comp:
+			comp = self.ownerComp
+		comp.openViewer()
+
+	def CustomizeParameters(self, comp=''):
+		"""Pulse to open a floating par editor dialog"""
+		if not comp:
+			comp = self.ownerComp
+		op.TDDialogs.op('CompEditor').EditComp(comp)
+
+	def Readme(self):
+		"""Pulse to open a floating Readme document"""
+		self.OpenViewer(op(self.ownerComp.par.Readmefile))
+
+	def Helpgit(self):
+		"""Pulse to open a floating network"""
+		ui.viewFile(self.ownerComp.par.Helpurl)
 # region callbacks
 
 # panelexec_passThru   
@@ -191,25 +289,42 @@ class ValueLadder:
 		ownerName	= owner.name
 		name		= panelValue.name
 		v			= panelValue.val
+##  Local Keyboard Shortcuts / Hotkeys 	                
+		if hasattr(op, 'KEYSMAPPER'):
+			ctrl 	= op.KEYSMAPPER.par.Ctrl
+			shift	= op.KEYSMAPPER.par.Shift
+			alt 	= op.KEYSMAPPER.par.Alt
+		else:
+			ctrl	= owner.panel.ctrl
+			shift	= owner.panel.shift
+			alt 	= owner.panel.alt
 
 		if event == 'valueChange':
 			if name == 'u':
 				self.setUround(v-self.Pos)
 	
 		if event == 'onToOff':
-			if name == 'focusselect' and ownerComp.par.Automaticclose == True:
-				self.close()
 			if name == 'select':
 				if ownerComp.par.Closeonclickrelease == True:
 					self.clear()
-
+			if name == 'focusselect' and ownerComp.par.Automaticclose == True:
+				if owner == ownerComp.op('valueLadder'):
+					self.close()
 		if event == 'offToOn':
 			if name == 'select':
 				self.setValueMultiplier(ownerName)
 				v = owner.panel.rollu.val
 				self.setPos(v)
-
-			return
+			if name == 'rselect' and not ctrl:
+				if ownerComp.par.Rclicksetdefault:
+					self.setDefaultValue()
+					ownerComp.par.Uround			= 0
+					ownerComp.par.Pos				= 0
+					ownerComp.par.Valuemultiplier	= 0
+			if ctrl == 1 and alt == 0:
+				if name == 'rselect' or name == 'lselect':
+					self.PopMenu()
+		return
 			
 # parexec_passThru callbacks
 	def onParValueChange(self, par, prev):
