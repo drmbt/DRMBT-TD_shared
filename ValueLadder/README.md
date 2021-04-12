@@ -33,31 +33,31 @@ op.VALUELADDER.Open(component, parameter, width=48, height=200, displayThousand=
 ------------
 
 component : str  
-	The operater path of the parameter owner you wish to target  
+>	The operater path of the parameter owner you wish to target  
 parameter : str  
-	the parName of the parameter whose value you wish to affect  
+>	the parName of the parameter whose value you wish to affect  
 width : int  
-	The width of the valueLadder popMenu   
+>	The width of the valueLadder popMenu   
 height : int  
-	The height of the valueLadder popMenu 	 
+>	The height of the valueLadder popMenu 	 
 displayThousand	: bool  
-	display the Thousand multiplier interval in ValueLadder popup  
+>	display the Thousand multiplier interval in ValueLadder popup  
 displayHundred : bool  
-	display the Hundred multiplier interval in ValueLadder popup  
+>	display the Hundred multiplier interval in ValueLadder popup  
 displayTen : bool  
-	display the Ten multiplier interval in ValueLadder popup  
+>	display the Ten multiplier interval in ValueLadder popup  
 displayOne : bool 
-	display the One multiplier interval in ValueLadder popup  
+>	display the One multiplier interval in ValueLadder popup  
 displayTenth : bool  
-	display the Tenth multiplier interval in ValueLadder popup  
+>	display the Tenth multiplier interval in ValueLadder popup  
 displayHundredth : bool  
-	display the Hundredth multiplier interval in ValueLadder popup  
+>	display the Hundredth multiplier interval in ValueLadder popup  
 displayThousandth : bool  
-	display the Thousandth multiplier interval in ValueLadder popup  
+>	display the Thousandth multiplier interval in ValueLadder popup  
 borders : bool  
-	display default pane borders(minimize, fullscreen, close,move)  
+>	display default pane borders(minimize, fullscreen, close,move)  
 closeOnClickRelease : bool 
-	closes ValueLadder window on lclick release after interaction  
+>	closes ValueLadder window on lclick release after interaction  
 autoClose : bool  
-	closes ValueLadder window when the popMenu window loses focus  
+>	closes ValueLadder window when the popMenu window loses focus  
 
