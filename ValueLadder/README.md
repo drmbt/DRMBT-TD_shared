@@ -32,32 +32,32 @@ op.VALUELADDER.Open(component, parameter, width=48, height=200, displayThousand=
 # Parameters  
 ------------
 
-component : str  
+>component : str  
     The operater path of the parameter owner you wish to target  
-parameter : str  
+>parameter : str  
     the parName of the parameter whose value you wish to affect  
-width : int  
+>width : int  
     The width of the valueLadder popMenu   
-height : int  
+>height : int  
     The height of the valueLadder popMenu 	 
-displayThousand	: bool  
+>displayThousand	: bool  
     display the Thousand multiplier interval in ValueLadder popup  
-displayHundred : bool  
+>displayHundred : bool  
     display the Hundred multiplier interval in ValueLadder popup  
-displayTen : bool  
+>displayTen : bool  
     display the Ten multiplier interval in ValueLadder popup  
-displayOne : bool 
+>displayOne : bool 
     display the One multiplier interval in ValueLadder popup  
-displayTenth : bool  
+>displayTenth : bool  
     display the Tenth multiplier interval in ValueLadder popup  
-displayHundredth : bool  
+>displayHundredth : bool  
     display the Hundredth multiplier interval in ValueLadder popup  
-displayThousandth : bool  
+>displayThousandth : bool  
     display the Thousandth multiplier interval in ValueLadder popup  
-borders : bool  
+>borders : bool  
     display default pane borders(minimize, fullscreen, close,move)  
-closeOnClickRelease : bool 
+>closeOnClickRelease : bool 
     closes ValueLadder window on lclick release after interaction  
-autoClose : bool  
+>autoClose : bool  
     closes ValueLadder window when the popMenu window loses focus  
 
