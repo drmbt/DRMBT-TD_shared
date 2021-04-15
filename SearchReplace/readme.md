@@ -1,3 +1,5 @@
+![Screenshot](/SearchReplace/lib/samples/SearchReplace.png)
+
 #SEARCHREPLACE  
 
 This ui is a lister hack of Ivan's searchReplace palette tool. in addition to providing a nice UI for
