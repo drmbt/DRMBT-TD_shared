@@ -1,27 +1,35 @@
-# This file and all related intellectual property rights are
-# a part of the Hive family of TD operators by DRMBT.  The use and modification
-# of this file is governed by, and only permitted under, the terms
-# of the Hive [End-User License Agreement]
-# [https://drmbt.com/placeholder/userAgreement.asp]
-# (the "License Agreement").  Among other terms, this file can only
-# be used, and/or modified for use, with HIVE ops for Derivative's TouchDesigner
-# software, and only by employees of the organization that has licensed
-# Derivative's TouchDesigner software and [accepted] the License Agreement.
-# Any redistribution or sharing of this file, with or without modification,
-# to or with any other person is strictly prohibited [(except as expressly
-# permitted by the License Agreement)].
-#
-# Version: 001.2021.001.11Apr
-#
-# _END_HEADER_
+"""
+	HIVE
+	========
+	
+	Copyright (c) 2021 Vincent Naples
+	vincent@drmbt.com
+	https://www.drmbt.com	
+
+	This file is part of HIVE.
+
+	HIVE is a family of global components and ui elements that become
+	more powerful when they interface together. HIVE is powerful, dangerous, 
+	and	quite possibly full of bugs.
+
+    As this primarily exists as a personal tool and study of TouchDesigner, git,
+	Python, and general UI/UX design, it is in this form being distributed in
+	hope that others may find it useful, but WITHOUT ANY WARRANTY; without even 
+	the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+	
+	Version: 001.2021.001.11Apr
+"""
+
 import TDFunctions as TDF
 
 class ValueLadder:
 	"""
-	Global module which when called, opens a popMenu stylized to look and act  
-	like TD's built in Value Ladder. This menu requires an extra click to engage   
-	an increment value through interaction instead of rollover, and the visual  
-	radial feedback is built into a single menu page view.  
+	VALUELADDER is a global module which when called, opens a popMenu stylized 
+	to look and act like TD's built in Value Ladder.  
+	
+	This menu requires an extra click to engage an increment value through 
+	interaction instead of rollover, and the visual radial feedback is built 
+	into a single menu page view.  
 	
 	Attributes
 	----------
@@ -106,7 +114,7 @@ class ValueLadder:
 			closeOnClickRelease : bool= True,
 			autoClose			: bool= True,
 			):
-		'''
+		"""
   
 		Takes a component and parameter argument, sets display options for
 		size and value increments, and preferences for winclose behavior.  
@@ -143,7 +151,7 @@ class ValueLadder:
 				closes ValueLadder window when the popMenu window loses focus
 
 		
-		'''
+		"""
 		self.clear()
 		p						= self.ownerComp.par
 		p.Operator				= component
