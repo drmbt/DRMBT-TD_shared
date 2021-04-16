@@ -2,9 +2,9 @@
 	HIVE
 	========
 	
-	Copyright (c) 2021 Vincent Naples
-	vincent@drmbt.com
-	https://www.drmbt.com	
+	Copyright (c) 2021 [Drmbt](https://github.com/drmbt)
+	[Vincent Naples](mailto:vincent@drmbt.com)
+	[drmbt.com](https://www.drmbt.com)	
 
 	This file is part of HIVE.
 
@@ -16,6 +16,10 @@
 	Python, and general UI/UX design, it is in this form being distributed in
 	hope that others may find it useful, but WITHOUT ANY WARRANTY; without even 
 	the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+	I'm releasing it in this form under the [MIT license](https://www.mit.edu/~amini/LICENSE.md)
+	in hopes that it might find some use in the TouchDesigner community.
+
 	
 	Version: 001.2021.001.11Apr
 """
@@ -41,12 +45,13 @@ class ValueLadder:
 			borders=False, autoClose=True, closeOnClickRelease=True)
 
 		Open a mouse centered popMenu when provided with an operator
-		and parameter argument. Increment display options, windos size,
+		and parameter argument. Increment display options, window size,
 		and close behavior preferences can be set here
 	"""
 
 	def __init__(self,ownerComp):
 		self.ownerComp = ownerComp
+
 	@property
 	def Name(self):
 		""" return the name of the ownerComp"""
@@ -55,16 +60,15 @@ class ValueLadder:
 	def Pos(self):
 		"""get the panel.rollu starting position on interaction"""
 		return self.ownerComp.par.Pos.eval()
-	
+	@Pos.setter
+	def Pos(self, v):
+		"""store the panel.rollu starting position on interaction"""
+		self.ownerComp.par.Pos= v
 	@property
 	def ValueMultiplier(self):
 		"""an amount to increment or decrement the target par.val"""
 		return self.ownerComp.par.Valuemultiplier.eval()
-
-	def setPos(self, v):
-		"""store the panel.rollu starting position on interaction"""
-		self.ownerComp.par.Pos= v
-
+	
 	def	setUround(self,v):
 		"""round the incoming u val to affect the target in 1/10 increments"""
 		self.ownerComp.par.Uround = round(v, 1)
@@ -72,44 +76,39 @@ class ValueLadder:
 	def setValueMultiplier(self, v):
 		"""set the desired interval by which you'd like to affect the target par"""
 		p = self.ownerComp.par.Valuemultiplier
-		if v == 'value_thousand':
-			p.val = 1000
-		if v == 'value_hundred':
-			p.val = 100
-		if v == 'value_ten':
-			p.val = 10
-		if v == 'value_one':
-			p.val = 1
-		if v == 'value_tenth':
-			p.val = .1
-		if v == 'value_hundredth':
-			p.val = .01
-		if v == 'value_thousandth':
-			p.val = .001 
+		lookup = {	'value_thousand' 	: 1000, 
+					'value_hundred' 	: 100,
+					'value_ten'			: 10,
+					'value_one'			: 1,
+					'value_tenth'		: .1,
+					'value_hundredth'	: .01,	
+					'value_thousandth'	: .001
+				}
+		p.val = lookup[v]
 
 	def	setDefaultValue(self):
 		"""reset targeted parameter value to its default"""
-		ownerComp 			= self.ownerComp
-		p 					= ownerComp.par
-		Op					= p.Operator		
-		Par					= p.Parameter 		
-		op(Op).par[Par].val = op(Op).par[Par].default
+		ownerComp 				= self.ownerComp
+		p 						= ownerComp.par
+		Op						= p.Operator		
+		Par						= p.Parameter 		
+		op(Op).par[Par].val		= op(Op).par[Par].default
 
 	def Open(self, 
-			component			: str = None,
-			parameter			: str = None,
+			component			: str = '',
+			parameter			: str = '',
 			width				: int = 48,
 			height				: int = 250,
-			displayThousand		: bool= False,
-			displayHundred		: bool= True,
-			displayTen			: bool= True,
-			displayOne			: bool= True,
-			displayTenth		: bool= True,
-			displayHundredth	: bool= True,
-			displayThousandth	: bool= True,
+			displayThousand		: bool= '',
+			displayHundred		: bool= '',
+			displayTen			: bool= '',
+			displayOne			: bool= '',
+			displayTenth		: bool= '',
+			displayHundredth	: bool= '',
+			displayThousandth	: bool= '',
 			borders				: bool= False,
-			closeOnClickRelease : bool= True,
-			autoClose			: bool= True,
+			closeOnClickRelease : bool= '',
+			autoClose			: bool= '',
 			):
 		'''
   
@@ -150,21 +149,36 @@ class ValueLadder:
 		
 		'''
 		self.clear()
-		p						= self.ownerComp.par
-		p.Operator				= component
-		p.Parameter				= parameter 
-		p.Automaticclose		= autoClose
-		p.Closeonclickrelease	= closeOnClickRelease
-		p.Borders				= borders
-		p.Thousanddisplay		= displayThousand
-		p.Hundreddisplay		= displayHundred
-		p.Tendisplay			= displayTen
-		p.Onedisplay			= displayOne
-		p.Tenthdisplay			= displayTenth
-		p.Hundredthdisplay		= displayHundredth
-		p.Thousandthdisplay		= displayThousandth
-		p.w						= width
-		p.h						= height
+		p = self.ownerComp.par
+		# update to **kwargs?
+		if component:
+			p.Operator				= component
+		if parameter:
+			p.Parameter				= parameter 
+		if autoClose:
+			p.Automaticclose		= autoClose
+		if closeOnClickRelease:
+			p.Closeonclickrelease	= closeOnClickRelease
+		if borders:
+			p.Borders				= borders
+		if displayThousand:
+			p.Thousanddisplay		= displayThousand
+		if displayHundred:
+			p.Hundreddisplay		= displayHundred
+		if displayTen:
+			p.Tendisplay			= displayTen
+		if displayOne:
+			p.Onedisplay			= displayOne
+		if displayTenth:
+			p.Tenthdisplay			= displayTenth
+		if displayHundredth:
+			p.Hundredthdisplay		= displayHundredth
+		if displayThousandth:
+			p.Thousandthdisplay		= displayThousandth
+		if width:
+			p.w						= width
+		if height:
+			p.h						= height
 
 		if self.ownerComp.op("window").isOpen: 
 			self.ownerComp.op("window").par.winclose.pulse()
@@ -284,6 +298,7 @@ class ValueLadder:
 	def Helpgit(self):
 		"""Pulse to open a floating network"""
 		ui.viewFile(self.ownerComp.par.Helpurl)
+
 # region callbacks
 
 # panelexec_passThru   
@@ -318,9 +333,10 @@ class ValueLadder:
 					self.close()
 		if event == 'offToOn':
 			if name == 'select':
-				self.setValueMultiplier(ownerName)
-				v = owner.panel.rollu.val
-				self.setPos(v)
+				if 'par' not in owner.name:
+					self.setValueMultiplier(ownerName)
+					v = owner.panel.rollu.val
+					self.Pos = v
 			if name == 'rselect' and not ctrl:
 				if ownerComp.par.Rclicksetdefault:
 					self.setDefaultValue()
