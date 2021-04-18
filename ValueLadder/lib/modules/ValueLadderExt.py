@@ -84,6 +84,7 @@ class ValueLadder:
 					'value_hundredth'	: .01,	
 					'value_thousandth'	: .001
 				}
+		
 		p.val = lookup[v]
 
 	def	setDefaultValue(self):
@@ -94,6 +95,12 @@ class ValueLadder:
 		Par						= p.Parameter 		
 		op(Op).par[Par].val		= op(Op).par[Par].default
 
+	def Value(self, val):
+		if not isinstance(val, float):
+			self.ownerComp.op('valueLadder/parValue/field/string')[0,0] = val
+		else:
+			self.ownerComp.op('valueLadder/parValue/field/string')[0,0] = round(val, 3)
+	
 	def Open(self, 
 			component			: str = '',
 			parameter			: str = '',
@@ -211,9 +218,9 @@ class ValueLadder:
 		Op = ownerComp.par.Operator
 		p = ownerComp.par.Parameter
 		if par > prev:
-			op(Op).par[p] = op(Op).par[p] + self.ValueMultiplier
+			op(Op).par[p] = round(float(op(Op).par[p]), 3) + self.ValueMultiplier
 		if par < prev:
-			op(Op).par[p] = op(Op).par[p] - self.ValueMultiplier
+			op(Op).par[p] = round(float(op(Op).par[p]), 3) - self.ValueMultiplier
 
 
 ## Pop Menu functionality 
@@ -255,7 +262,29 @@ class ValueLadder:
 		elif info['item'] == 'Customize Component':
 			self.CustomizeParameters(op(Op))
 
-			
+	def ParMenu(self):	
+		"""Open popMenu to select a new Parameter target"""
+		parList = [p.name for p in op(self.ownerComp.par.Operator).customPars]
+		op.TDResources.op('popMenu').Open(
+			items=parList,
+			dividersAfterItems=[],
+			callback=self.setParameter
+							)
+	def setParameter(self, info):
+		self.ownerComp.par.Parameter = info['item']
+		#self.ownerComp.par.Parameter = info['items'][0]
+
+	def ValMenu(self):
+		"""Open popMenu to select a new Parameter value for Menu datatypes"""
+		valList = [p for p in op(self.ownerComp.par.Operator).par[self.ownerComp.par.Parameter].menuNames]
+		op.TDResources.op('popMenu').Open(
+			items=valList,
+			dividersAfterItems=[],
+			callback=self.setParVal
+		)
+	def setParVal(self, info):
+		op(self.ownerComp.par.Operator).par[self.ownerComp.par.Parameter].val = info['item']
+							
 ##  Pane / Op / Dialogs
 
 	def OpenParameters(self, comp=''):
@@ -310,10 +339,10 @@ class ValueLadder:
 		name		= panelValue.name
 		v			= panelValue.val
 ##  Local Keyboard Shortcuts / Hotkeys 	                
-		if hasattr(op, 'KEYSMAPPER'):
-			ctrl 	= op.KEYSMAPPER.par.Ctrl
-			shift	= op.KEYSMAPPER.par.Shift
-			alt 	= op.KEYSMAPPER.par.Alt
+		if hasattr(op, 'KEYMACROS'):
+			ctrl 	= op.KEYMACROS.par.Ctrl
+			shift	= op.KEYMACROS.par.Shift
+			alt 	= op.KEYMACROS.par.Alt
 		else:
 			ctrl	= owner.panel.ctrl
 			shift	= owner.panel.shift
@@ -332,11 +361,18 @@ class ValueLadder:
 				if owner == ownerComp.op('valueLadder'):
 					self.close()
 		if event == 'offToOn':
+
 			if name == 'select':
-				if 'par' not in owner.name:
+				if 'value' in owner.name:
 					self.setValueMultiplier(ownerName)
 					v = owner.panel.rollu.val
 					self.Pos = v
+				if owner.name == 'parLabel':
+					self.ParMenu()
+				if owner.name == 'field':
+					if self.ownerComp.par.Type == 'Menu':
+						self.ValMenu()
+
 			if name == 'rselect' and not ctrl:
 				if ownerComp.par.Rclicksetdefault:
 					self.setDefaultValue()
@@ -353,6 +389,8 @@ class ValueLadder:
 		"""panelexec_passThru value change callbacks to condense logic to ext"""
 		if par.name == 'Uround':
 			self.parseVal(par.val, prev)
+		if par.name == 'Value':
+			self.Value(par.eval())
 
 	def onParPulse(self, par):
 		"""panelexec_passThru pulse callbacks to condense logic to ext"""
