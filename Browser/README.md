@@ -1,4 +1,4 @@
-# Browser 
+# Browser
 
 ![Screenshot](/Browser/lib/samples/demo.jpg)
 
