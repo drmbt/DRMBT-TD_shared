@@ -159,11 +159,10 @@ class BrowserExt:
 			['palette'	, f"{app.samplesFolder}/Palette"],
 			['user palette'	, f"{app.userPaletteFolder}"]
 					]
-		ui.undo.startBlock('undo initialize folder list')
 		table.clear()
 		for item in initList:
 			table.appendRow(item)
-		ui.undo.endBlock()
+
 
 		return
 
