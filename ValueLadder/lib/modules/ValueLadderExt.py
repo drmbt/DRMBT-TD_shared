@@ -25,9 +25,9 @@
 """
 import TDFunctions as TDF
 
+
 class ValueLadder:
-	"""
-	Global module which when called, opens a popMenu stylized to look and act  
+	""" opMenu stylized to look and act  
 	like TD's built in Value Ladder. This menu requires an extra click to engage   
 	an increment value through interaction instead of rollover, and the visual  
 	radial feedback is built into a single menu page view.  
@@ -50,7 +50,7 @@ class ValueLadder:
 	"""
 
 	def __init__(self,ownerComp):
-		self.ownerComp = ownerComp
+		self.ownerComp 	= ownerComp
 
 	@property
 	def Name(self):
@@ -271,8 +271,12 @@ class ValueLadder:
 			callback=self.setParameter
 							)
 	def setParameter(self, info):
+		"""ParMenu callbacks"""
+
 		self.ownerComp.par.Parameter = info['item']
-		#self.ownerComp.par.Parameter = info['items'][0]
+		if not self.ownerComp.op('window').isOpen:
+			self.ownerComp.op('window').winopen.pulse()
+
 
 	def ValMenu(self):
 		"""Open popMenu to select a new Parameter value for Menu datatypes"""
@@ -283,6 +287,7 @@ class ValueLadder:
 			callback=self.setParVal
 		)
 	def setParVal(self, info):
+		"""ValMenu callbacks"""
 		op(self.ownerComp.par.Operator).par[self.ownerComp.par.Parameter].val = info['item']
 							
 ##  Pane / Op / Dialogs
@@ -354,10 +359,10 @@ class ValueLadder:
 	
 		if event == 'onToOff':
 			if name == 'select':
-				if ownerComp.par.Closeonclickrelease == True:
+				if ownerComp.par.Closeonclickrelease:
 					self.clear()
 					self.close()
-			if name == 'focusselect' and ownerComp.par.Automaticclose == True:
+			if name == 'focusselect' and ownerComp.par.Automaticclose:
 				if owner == ownerComp.op('valueLadder'):
 					self.close()
 		if event == 'offToOn':
