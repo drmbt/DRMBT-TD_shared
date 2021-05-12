@@ -6,14 +6,9 @@ This repository contains a global BROWSER component that
 can be called to pop up a floating file explorer for navigating, managing, importing and accessing assets and tox files external to TouchDesigner
 
 # Quickstart  
-Drop BROWSER.tox into a TouchDesigner session. A local cache directory is made on create, so if you just open the tox by itself, you'll get a harmless error that can be ignored with a quick bypass.
+Drop BROWSER.tox into a TouchDesigner session. Local cache and pip dependancy folders are created in the project folder location.
 
-If Initfoldersoncreate is True, folder definitions will be updated when the tox is created to the current machine when you drop the tox into a session.
-
-Folder init definitions can be edited by the user in the BrowserExt  
-
-call op.BROWSER.Openbrowser() to pop up a floating browser UI
-call Initfolderlist() to reset to a default set of paths for this filesystem
+If Initfoldersoncreate is True, folder definitions will be updated when the tox is created to the current machine when you drop the tox into a session. Folder init definitions can be edited by the user in the BrowserExt.
 
 Right click menus return expected menu items for a file explorer
 
