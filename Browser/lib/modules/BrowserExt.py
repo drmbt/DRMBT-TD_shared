@@ -465,6 +465,7 @@ class BrowserExt:
 
 	def Importcache(self):
 		'''load the icon files from the local cache '''
+		os.makedirs(self.ownerComp.par.Localcachefolder.eval(), exist_ok = True)
 		folder = tdu.expandPath(self.ownerComp.par.Localcachefolder)
 		for filename in os.listdir(folder):
 			filebase, fileext = os.path.splitext(filename)
