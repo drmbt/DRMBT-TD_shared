@@ -6,7 +6,7 @@ This repository contains a global BROWSER component that
 can be called to pop up a floating file explorer for navigating, managing, importing and accessing assets and tox files external to TouchDesigner
 
 # Version
-built in TouchDesigner build 12380.
+tested as stable in TouchDesigner build 13610.
 
 # Known Issues
 Works on mac, but td-pip install isn't currently supported, so rclick delete will be caught in an error exception and nothing will happen. Completely borked in 2020 td build, will not support
