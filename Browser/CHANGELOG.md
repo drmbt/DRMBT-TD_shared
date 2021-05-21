@@ -6,7 +6,7 @@ and this project _tries to_ adhere to [Semantic Versioning](https://semver.org/s
 
 
 ### [1.1.2] 2021-5-19
-tested in td.13610
+tested in td.13610, td-pip is borked, which breaks delete functionality. works as expected in 12380, but v1.1.1 is recommended to bypass some errors
 
 - Add Refreshfolder() to treeLister r click menu
 - Add rollover help to clarify delete function, ambiguous customPars
