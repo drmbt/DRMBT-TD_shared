@@ -24,10 +24,10 @@
 	Version: 001.2021.001.11Apr
 """
 import TDFunctions as TDF
-
-
+import webbrowser
 class ValueLadder:
-	""" opMenu stylized to look and act  
+	"""
+	Global module which when called, opens a popMenu stylized to look and act  
 	like TD's built in Value Ladder. This menu requires an extra click to engage   
 	an increment value through interaction instead of rollover, and the visual  
 	radial feedback is built into a single menu page view.  
@@ -39,7 +39,7 @@ class ValueLadder:
 
 	Public Methods
 	--------------
-		Open(component, parameter, width=48, height=200, displayThousand=False, 
+		Open(component, parameter, label = None, width='', height='', displayThousand=False, 
 			displayHundred=True, displayTen=True, displayOne=True, 
 			displayTenth=True, displayHundredth=True, displayThousandth=True, 
 			borders=False, autoClose=True, closeOnClickRelease=True)
@@ -50,7 +50,7 @@ class ValueLadder:
 	"""
 
 	def __init__(self,ownerComp):
-		self.ownerComp 	= ownerComp
+		self.ownerComp = ownerComp
 
 	@property
 	def Name(self):
@@ -104,6 +104,7 @@ class ValueLadder:
 	def Open(self, 
 			component			: str = '',
 			parameter			: str = '',
+			label				: str = None,
 			width				: int = 48,
 			height				: int = 250,
 			displayThousand		: bool= '',
@@ -158,34 +159,36 @@ class ValueLadder:
 		self.clear()
 		p = self.ownerComp.par
 		# update to **kwargs?
-		if component:
+		if component != '':
 			p.Operator				= component
-		if parameter:
+		if parameter != '':
 			p.Parameter				= parameter 
-		if autoClose:
+		if label:
+			p.Label					= label
+		if autoClose != '':
 			p.Automaticclose		= autoClose
-		if closeOnClickRelease:
+		if closeOnClickRelease != '':
 			p.Closeonclickrelease	= closeOnClickRelease
-		if borders:
+		if borders != '':
 			p.Borders				= borders
-		if displayThousand:
+		if displayThousand != '':
 			p.Thousanddisplay		= displayThousand
-		if displayHundred:
+		if displayHundred != '':
 			p.Hundreddisplay		= displayHundred
-		if displayTen:
+		if displayTen != '':
 			p.Tendisplay			= displayTen
-		if displayOne:
+		if displayOne != '':
 			p.Onedisplay			= displayOne
-		if displayTenth:
+		if displayTenth != '':
 			p.Tenthdisplay			= displayTenth
-		if displayHundredth:
+		if displayHundredth != '':
 			p.Hundredthdisplay		= displayHundredth
-		if displayThousandth:
+		if displayThousandth != '':
 			p.Thousandthdisplay		= displayThousandth
-		if width:
-			p.w						= width
-		if height:
-			p.h						= height
+		p.Borders					= borders
+		p.w							= width
+		p.h							= height
+
 
 		if self.ownerComp.op("window").isOpen: 
 			self.ownerComp.op("window").par.winclose.pulse()
@@ -272,11 +275,10 @@ class ValueLadder:
 							)
 	def setParameter(self, info):
 		"""ParMenu callbacks"""
-
 		self.ownerComp.par.Parameter = info['item']
 		if not self.ownerComp.op('window').isOpen:
-			self.ownerComp.op('window').winopen.pulse()
-
+			self.ownerComp.op('window').par.winopen.pulse()
+		#self.ownerComp.par.Parameter = info['items'][0]
 
 	def ValMenu(self):
 		"""Open popMenu to select a new Parameter value for Menu datatypes"""
@@ -327,8 +329,13 @@ class ValueLadder:
 
 	def Readme(self):
 		"""Pulse to open a floating Readme document"""
-		self.OpenViewer(op(self.ownerComp.par.Readmefile))
+		self.OpenViewer(self.ownerComp.op('code/readme'))
+		debug('readme')
+	def Support(self):
+		webbrowser.open('https://drmbt.com/projects/about/')
 
+	def Git(self):
+		webbrowser.open(self.ownerComp.par.Github.val)
 	def Helpgit(self):
 		"""Pulse to open a floating network"""
 		ui.viewFile(self.ownerComp.par.Helpurl)
@@ -359,10 +366,10 @@ class ValueLadder:
 	
 		if event == 'onToOff':
 			if name == 'select':
-				if ownerComp.par.Closeonclickrelease:
+				if ownerComp.par.Closeonclickrelease == True:
 					self.clear()
 					self.close()
-			if name == 'focusselect' and ownerComp.par.Automaticclose:
+			if name == 'focusselect' and ownerComp.par.Automaticclose == True:
 				if owner == ownerComp.op('valueLadder'):
 					self.close()
 		if event == 'offToOn':
@@ -372,7 +379,7 @@ class ValueLadder:
 					self.setValueMultiplier(ownerName)
 					v = owner.panel.rollu.val
 					self.Pos = v
-				if owner.name == 'parLabel':
+				if owner.name == 'parMenu':
 					self.ParMenu()
 				if owner.name == 'field':
 					if self.ownerComp.par.Type == 'Menu':

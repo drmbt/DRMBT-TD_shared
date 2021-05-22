@@ -1,9 +1,12 @@
 # ValueLadder
 
-![Screenshot](/ValueLadder/lib/samples/demo.gif)
+![Screenshot](/ValueLadder/lib/samples/demo.gif) ![Screenshot](/ValueLadder/lib/samples/icon.jpg)
 
 This repository contains a global VALUELADDER component that
 can be called to pop up a floating menu styled after the form and functionality of TouchDesigner's built in ValueLadder  
+
+# Version
+tested and workign in Stable Build TouchDesigner 13610
 
 # Quickstart  
 
@@ -36,6 +39,8 @@ component : str
 	The operater path of the parameter owner you wish to target  
 parameter : str  
 	the parName of the parameter whose value you wish to affect  
+label : str
+	If specified, a draggable panel displaying the label will be available
 width : int  
 	The width of the valueLadder popMenu   
 height : int  

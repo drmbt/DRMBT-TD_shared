@@ -4,8 +4,13 @@ All notable changes to this project will _hopefully_ be documented in this file.
 The format is _loosely_ based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project _tries to_ adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+### [1.1.5] 2021-5-21
+add label argument for draggable window panel
+clean up optional arguments
+add support arguments
+
 ### [1.1.4] 2021-4-18
-add popMenu functionality for pars, menu type parVals 
+add ctrl click popMenu functionality for pars, menu, type, parVals 
 shift click name to drag
 
 ### [1.1.3] 2021-4-16
