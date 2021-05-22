@@ -330,7 +330,7 @@ class extTablePopup:
 			target['stretch', 'path'] = 1
 		if 'OP' in table.row(0):
 			target['width','OP'] = 450
-			target['stretch', 'OP'] = 0
+			target['stretch', 'OP'] = 1
 		if 'comment' in table.row(0):
 			target['width','comment'] = 400
 			target['stretch', 'comment'] = 1
