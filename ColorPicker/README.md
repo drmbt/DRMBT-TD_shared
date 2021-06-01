@@ -34,14 +34,16 @@ op.COLORPICKER.Openui(
 	Displayheader			= True,  
 	Displayhsv			= True,  
 	Displayspectrum 		= True,  
-	Displaycolorcontrols	    = True,  
+	Displaycolorcontrols	        = True,  
 	Displaypickerpars		= True,  
 	Displaypalette			= True,  
 	Displayramplister		= True,  
 	W				= 720,  
 	H				= 960,  
 	Orient				= 'horz',  
-	Autoclose			= False,)  
+	Autoclose			= False,
+    )  
+
 ```
 
 		
