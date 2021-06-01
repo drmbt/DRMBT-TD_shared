@@ -34,19 +34,19 @@ example panelexecDAT script:
 def onOffToOn(panelValue):
 	op.COLORPICKER.SetPushColor(op(me.par.panels).par['Rgbar'])
 	op.COLORPICKER.Openui(
-	    Label				= f"Full UI: {op(me.par.panels).path}",  
-	    Displayheader			= True,  
-	    Displayhsv			= True,  
-    	Displayspectrum 		= True,  
-    	Displaycolorcontrols	        = True,  
-    	Displaypickerpars		= True,  
-    	Displaypalette			= True,  
-    	Displayramplister		= True,  
-    	W				= 720,  
-    	H				= 960,  
-    	Orient				= 'horz',  
-    	Autoclose			= False,
-    	    )  
+		Label				= f"Full UI: {op(me.par.panels).path}",  
+		Displayheader			= True,  
+		Displayhsv			= True,  
+		Displayspectrum 		= True,  
+		Displaycolorcontrols	= True,  
+		Displaypickerpars		= True,  
+		Displaypalette			= True,  
+		Displayramplister		= True,  
+		W				= 720,  
+		H				= 960,  
+		Orient				= 'horz',  
+		Autoclose			= False,
+			)  
 
 ```
 
