@@ -2,7 +2,7 @@
 
 ![Screenshot](/ColorPicker/lib/samples/demo.gif)
 
-[![Video rundown](/ColorPicker/lib/samples/demo.gif)](https://www.vimeo.com/557398976)
+[![Video rundown](/ColorPicker/lib/samples/demo.png)](https://www.vimeo.com/557398976)
 
 This repository contains a global ColorPicker component that can be called to pop up a floating ColorPickerUI with a number of useful features: 
 - modular, scaleable global pop dialogue for color control
