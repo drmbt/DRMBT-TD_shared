@@ -17,19 +17,23 @@ tested as stable in TouchDesigner build 13610.
 # Quickstart  
 Check out the sample project for examples of how one might call ColorPicker to generate a temporary UI for a color tuplet  
 
-GenerateUI():  
+Generateui():  
 Create a copy of the user interface to be worked into larger UI design
 
-SetPushColor(r: parameterr):  
+SetPushColor(r: parameterR):  
 
 provide the 'r' member of a color paramter tuplet to temporarily link the UI to the specified rgb or rgba tuplet
 
-OpenUI(**hwargs):  
-set an arbitrary number of unordered Parameter values for the popup UI. Same as calling Open(**kwargs) on the ColorPickerUI comp itself
+Openui(**kwargs):  
+set an arbitrary number of unordered Parameter values for the popup UI. Same as calling Open(**kwargs) on the ColorPickerUI comp itself.  
 
-example:
+This method leaves the previous value as default, so only what you need changed must be specified
+
+example panelexecDAT script:
 ```
-op.COLORPICKER.Openui(
+def onOffToOn(panelValue):
+	op.COLORPICKER.SetPushColor(op(me.par.panels).par['Rgbar'])
+	op.COLORPICKER.Openui(
 	Label				= f"Full UI: {op(me.par.panels).path}",  
 	Displayheader			= True,  
 	Displayhsv			= True,  
@@ -42,7 +46,7 @@ op.COLORPICKER.Openui(
 	H				= 960,  
 	Orient				= 'horz',  
 	Autoclose			= False,
-    )  
+	    )  
 
 ```
 
