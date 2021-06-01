@@ -38,7 +38,7 @@ def onOffToOn(panelValue):
 		Displayheader			= True,  
 		Displayhsv			= True,  
 		Displayspectrum 		= True,  
-		Displaycolorcontrols	= True,  
+		Displaycolorcontrols		= True,  
 		Displaypickerpars		= True,  
 		Displaypalette			= True,  
 		Displayramplister		= True,  
