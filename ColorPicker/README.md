@@ -30,18 +30,18 @@ set an arbitrary number of unordered Parameter values for the popup UI. Same as 
 example:
 ```
 op.COLORPICKER.Openui(
-	Label					= f"Full UI: {op(me.par.panels).path}",  
+	Label				= f"Full UI: {op(me.par.panels).path}",  
 	Displayheader			= True,  
-	Displayhsv				= True,  
+	Displayhsv			= True,  
 	Displayspectrum 		= True,  
-	Displaycolorcontrols	= True,  
+	Displaycolorcontrols	    = True,  
 	Displaypickerpars		= True,  
 	Displaypalette			= True,  
 	Displayramplister		= True,  
-	W						= 720,  
-	H						= 960,  
-	Orient					= 'horz',  
-	Autoclose				= False,)  
+	W				= 720,  
+	H				= 960,  
+	Orient				= 'horz',  
+	Autoclose			= False,)  
 ```
 
 		
