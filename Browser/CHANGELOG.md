@@ -5,6 +5,13 @@ The format is _loosely_ based on [Keep a Changelog](https://keepachangelog.com/e
 and this project _tries to_ adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+### [1.1.3] 2021-6-1
+clicking invalid files clears tmpViewer
+epoch conversion handled in extension and treeLister, not as eval mod
+
+# To Do  
+Wrap send2trash, eliminate td-pip implementation
+
 ### [1.1.2] 2021-5-19
 
 - Add Refreshfolder() to treeLister r click menu
