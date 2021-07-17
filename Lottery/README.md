@@ -1,11 +1,10 @@
 # Lottery  
 
----
-
-![Screenshot](/ValueLadder/lib/samples/demo.gif) ![Screenshot](/ValueLadder/lib/samples/icon.jpg)
-
+![Screenshot](/Lottery/lib/samples/demo.gif)
 # Version 1.0
 tested and working in Stable Build TouchDesigner 14360
+
+---
 
 Lottery is a global component for quickly adding entrants to a
 lottery pool and selecting a random winner by rotating through the entrants wheel of fortune style. 
@@ -24,8 +23,8 @@ a Selectlength and pulsing customPar['Selectwinner']
 
 ---
 
-### Public Methods
-
+### Public Methods  
+  
 **Addentrant(user : str):**  
 	specify a user and add a time stamped entry to the table. 
 	if no user is specified, add entry from ownerComp customPar['Entrantname']  
