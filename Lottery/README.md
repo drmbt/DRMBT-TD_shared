@@ -9,11 +9,14 @@ tested and working in Stable Build TouchDesigner 14360
 Lottery is a global component for quickly adding entrants to a
 lottery pool and selecting a random winner by rotating through the entrants wheel of fortune style. 
 
-It was commissioned by [DandiDoesIt](https://www.patreon.com/DandiDoesIt), powering [The Dandi Line](https://www.twitch.tv/dandidoesi), a Live Performance Video Game (LPVG) leveraging the
+It was commissioned by [DandiDoesIt](https://www.patreon.com/DandiDoesIt), powering [The Dandi Line](https://www.twitch.tv/dandidoesit), a Live Performance Video Game (LPVG) leveraging the
 Twitch platform as a vehicle for interactive theater. 
 
 ---
 ### Quickstart
+
+If dragging tox to network for first time, relink the audio sample dependency
+'click.wav' located default in lib/samples
 
 Add entrants to the lottery pool with op.LOTTERY.Addentrent('username') or
 built by adding an Entrant Name and pulsing customPar['Addentrant']
@@ -55,9 +58,10 @@ page 'File' parameter
 ---
 #### TODO
 
-* Changes based on feedback.
+* ~~Changes based on feedback~~
 
 #### Completed
+* ~~completed feedback by adding a speed component and switching to a count/limit based logic~~
 * ~~samples and documentation~~
 * ~~implement table storage for entrant pool~~
 * ~~implement table import/export~~
