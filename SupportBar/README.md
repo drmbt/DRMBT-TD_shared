@@ -1,4 +1,4 @@
-# Lottery  
+# SupportBar 
 
 ![Screenshot](/SupportBar/lib/samples/demo.png)
 # Version 1.0
