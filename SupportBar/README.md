@@ -58,7 +58,7 @@ complete support table itself.
 
 ### Dependencies
 
-**op.TABLEPOPUP** 
+**op.TABLEPOPUP**   
 	if the hive op.TABLEPOPUP tox is present in the session, it will be used as the 
 	preferred DAT editor for above Edit* methods, otherwise it will default to standard openViewer()
 
