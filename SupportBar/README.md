@@ -1,7 +1,7 @@
 # SupportBar 
 
 ![Screenshot](/SupportBar/lib/samples/demo.png)
-# Version 1.0
+# Version 1.1
 tested and working in Stable Build TouchDesigner 14360
 
 ---
@@ -65,7 +65,7 @@ complete support table itself.
 ---
 #### TODO
 
-* Changes based on feedback
+* ~~Changes based on feedback: pushed dattoCHOP downstream to avoid namespace collision~~
 
 #### Completed
 
